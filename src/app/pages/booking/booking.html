@@ -119,7 +119,11 @@
                   @for (stylist of stylists; track stylist.id) {
                     <div class="stylist-card" [class.selected]="selectedStylist?.id === stylist.id"
                          (click)="selectStylist(stylist)">
-                      <div class="stylist-avatar">{{ stylist.name.charAt(0) }}</div>
+                      @if (stylist.image_url) {
+                        <img [src]="stylist.image_url" [alt]="stylist.name" class="stylist-avatar-img">
+                      } @else {
+                        <div class="stylist-avatar">{{ stylist.name.charAt(0) }}</div>
+                      }
                       <div class="stylist-info">
                         <h4>{{ stylist.name }}</h4>
                         <p>{{ stylist.specialties }}</p>

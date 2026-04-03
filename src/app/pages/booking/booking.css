@@ -94,12 +94,12 @@
 }
 
 .step-content h2 {
-  color: var(--accent);
+  color: black;
   margin-bottom: 0.5rem;
 }
 
 .step-description {
-  color: var(--text-muted);
+  color: #666;
   margin-bottom: 1.5rem;
 }
 
@@ -171,18 +171,18 @@
 .service-info h3 {
   font-size: 1rem;
   margin-bottom: 0.25rem;
-  color: var(--text);
+  color: black;
 }
 
 .service-description {
   font-size: 0.85rem;
-  color: var(--text-muted);
+  color: #666;
   margin-bottom: 0.25rem;
 }
 
 .service-duration {
   font-size: 0.8rem;
-  color: var(--primary);
+  color: black;
 }
 
 .service-price {
@@ -199,7 +199,7 @@
 .date-section h3 {
   font-size: 1.1rem;
   margin-bottom: 1rem;
-  color: var(--text);
+  color: black;
 }
 
 .stylists-grid {
@@ -244,12 +244,21 @@
 .stylist-info h4 {
   margin: 0 0 0.25rem 0;
   font-size: 1rem;
+  color: black;
 }
 
 .stylist-info p {
   margin: 0;
   font-size: 0.8rem;
-  color: var(--text-muted);
+  color: #666;
+}
+
+.stylist-avatar-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
 }
 
 .date-section {
@@ -378,6 +387,17 @@
 .form-group label {
   font-size: 0.9rem;
   font-weight: bold;
+  color: black;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: black;
+  background: white;
 }
 
 .form-group input,
@@ -460,8 +480,22 @@
 }
 
 .success-card h2 {
-  color: var(--accent);
+  color: black;
   margin-bottom: 1rem;
+}
+
+.booking-summary {
+  background: var(--secondary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  text-align: left;
+  color: black;
+}
+
+.booking-summary p {
+  margin: 0.5rem 0;
+  color: black;
 }
 
 .booking-summary {

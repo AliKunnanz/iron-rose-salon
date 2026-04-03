@@ -12,7 +12,15 @@ import { Service, Stylist, Availability, BookingRequest } from '../../services/m
 })
 export class Booking implements OnInit {
   services: Service[] = [];
-  stylists: Stylist[] = [];
+  stylists: Stylist[] = [
+    { id: 1, name: 'Sophie Rightmire', specialties: 'Cuts, Color, Blowouts', image_url: '/stylist-sophie-rightmire.png' },
+    { id: 2, name: 'Misty Byrd', specialties: 'Owner, Punk Rock, Vivid Colors', image_url: '/stylist-misty-byrd.png' },
+    { id: 3, name: 'Pinky Jones', specialties: 'Color Specialist, Vivids, Ombre', image_url: '/stylist-pinky-jones.png' },
+    { id: 4, name: 'Cady Woolly', specialties: 'Classic Cuts, Textured Hair', image_url: '/stylist-cady-woolly.png' },
+    { id: 5, name: 'Brittney Ragland', specialties: 'Fantasy Hair, Vivids, Specialty Cuts', image_url: '/stylist-brittney-ragland.png' },
+    { id: 6, name: 'Madeline Noble', specialties: 'Vivid Colors, Fantasy Hair, Balayage', image_url: '/stylist-madeline-noble.png' },
+    { id: 7, name: 'Hae Harrison', specialties: 'Vivids, Blondes, Layers, Blowouts', image_url: '/stylist-hae-harrison.png' },
+  ];
   availableSlots: string[] = [];
   
   selectedService: Service | null = null;
@@ -46,7 +54,6 @@ export class Booking implements OnInit {
 
   ngOnInit(): void {
     this.loadServices();
-    this.loadStylists();
     this.setMinDate();
   }
 
@@ -71,13 +78,6 @@ export class Booking implements OnInit {
           this.cdr.detectChanges();
         });
       }
-    });
-  }
-
-  loadStylists(): void {
-    this.api.getStylists().subscribe({
-      next: (data) => this.stylists = data,
-      error: (err) => console.error('Failed to load stylists:', err)
     });
   }
 

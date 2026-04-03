@@ -71,10 +71,13 @@ if (stylistCount.count === 0) {
     VALUES (?, ?, ?)
   `);
   
-  insertStylist.run('Ashly', 'Cuts, Color, Highlights', 'ashly.jpg');
-  insertStylist.run('Marcus', 'Cuts, Dreadlocks, Locs', 'marcus.jpg');
-  insertStylist.run('Jasmine', 'Color, Highlights, Treatments', 'jasmine.jpg');
-  insertStylist.run('Devon', 'Cuts, Styling, Kids', 'devon.jpg');
+  insertStylist.run('Sophie Rightmire', 'Cuts, Color, Blowouts', '/stylist-sophie-rightmire.png');
+  insertStylist.run('Misty Byrd', 'Owner, Punk Rock, Vivid Colors', '/stylist-misty-byrd.png');
+  insertStylist.run('Pinky Jones', 'Color Specialist, Vivids, Ombre', '/stylist-pinky-jones.png');
+  insertStylist.run('Cady Woolly', 'Classic Cuts, Textured Hair', '/stylist-cady-woolly.png');
+  insertStylist.run('Brittney Ragland', 'Fantasy Hair, Vivids, Specialty Cuts', '/stylist-brittney-ragland.png');
+  insertStylist.run('Madeline Noble', 'Vivid Colors, Fantasy Hair, Balayage', '/stylist-madeline-noble.png');
+  insertStylist.run('Hae Harrison', 'Vivids, Blondes, Layers, Blowouts', '/stylist-hae-harrison.png');
 }
 
 const serviceCount = db.prepare('SELECT COUNT(*) as count FROM services').get();
@@ -84,15 +87,15 @@ if (serviceCount.count === 0) {
     VALUES (?, ?, ?, ?, ?)
   `);
   
-  insertService.run('Clipper Cut', 'Quick clipper cut styling', 40, 30, 'Cuts');
-  insertService.run('Short Cut', 'Haircut for short length hair', 50, 45, 'Cuts');
-  insertService.run('Medium Cut', 'Haircut for medium length hair', 55, 60, 'Cuts');
-  insertService.run('Long Cut', 'Haircut for long length hair', 60, 75, 'Cuts');
-  insertService.run('Kids Cut', 'Haircut for children 12 and under', 25, 30, 'Cuts');
+  insertService.run('Clipper Cuts', 'Quick clipper cut styling', 40, 30, 'Cuts');
+  insertService.run('Short Cuts', 'Haircut for short length hair', 50, 45, 'Cuts');
+  insertService.run('Medium Cuts', 'Haircut for medium length hair', 55, 60, 'Cuts');
+  insertService.run('Long Cuts', 'Haircut for long length hair', 60, 75, 'Cuts');
+  insertService.run('Kids Cuts', 'Haircut for children 12 and under', 25, 30, 'Cuts');
   insertService.run('All Over Color', 'Full color application', 160, 120, 'Color');
   insertService.run('Ombre', 'Gradient color effect', 160, 150, 'Color');
   insertService.run('Highlights', 'Partial or full highlights', 180, 180, 'Color');
-  insertService.run('Dreadlock Maintenance', 'Hourly rate for loc maintenance', 100, 60, 'Specialty');
+  insertService.run('Dreadlock Maintenance', 'Per hour loc maintenance', 100, 60, 'Specialty');
   insertService.run('Dreadlock Install', 'Consultation required', 0, 60, 'Specialty');
   insertService.run('Consultation', 'Discuss your needs with a stylist', 0, 30, 'Consultation');
 }
