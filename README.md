@@ -11,19 +11,16 @@ A punk rock themed hair salon website built with Angular.
 ### Run the Website
 
 1. Open terminal/command prompt
-2. Navigate to the project folder:
+2. Navigate to the project folder and install dependencies:
    ```bash
-   cd C:\Users\aliku\iron-rose-salon
-   ```
-3. Install dependencies (if not already installed):
-   ```bash
+   cd iron-rose-salon
    npm install
    ```
-4. Start the development server:
+3. Start the development server:
    ```bash
    npm run start
    ```
-5. Open your browser to: **http://localhost:4200**
+4. Open your browser to: **http://localhost:4200**
 
 ## For Deployment (Publishing the Website)
 
