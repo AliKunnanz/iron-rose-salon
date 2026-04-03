@@ -1,0 +1,120 @@
+/* ========================================
+   NAVBAR STYLES - PUNK ROCK
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap');
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: var(--secondary);
+  border-bottom: 3px solid var(--accent);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2rem;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 3px;
+  transition: all 0.3s ease;
+}
+
+.logo a:hover {
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent);
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  padding: 0.6rem 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(255, 0, 128, 0.1);
+}
+
+.nav-links .book-btn {
+  background: var(--primary);
+  color: white !important;
+  border-color: var(--primary) !important;
+  font-weight: bold;
+}
+
+.nav-links .book-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent) !important;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.menu-toggle span {
+  width: 25px;
+  height: 2px;
+  background: var(--text);
+  transition: all 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 900px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--secondary);
+    padding: 1rem;
+    border-bottom: 3px solid var(--accent);
+  }
+}

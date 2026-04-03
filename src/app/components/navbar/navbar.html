@@ -1,0 +1,20 @@
+<nav class="navbar">
+  <div class="logo">
+    <a routerLink="/">IRON ROSE</a>
+  </div>
+  
+  <button class="menu-toggle" (click)="toggleMenu()" [class.active]="menuOpen">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <ul class="nav-links" [class.open]="menuOpen">
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen = false">HOME</a></li>
+    <li><a routerLink="/about" routerLinkActive="active" (click)="menuOpen = false">ABOUT</a></li>
+    <li><a routerLink="/services" routerLinkActive="active" (click)="menuOpen = false">SERVICES</a></li>
+    <li><a routerLink="/stylists" routerLinkActive="active" (click)="menuOpen = false">STYLISTS</a></li>
+    <li><a routerLink="/gallery" routerLinkActive="active" (click)="menuOpen = false">GALLERY</a></li>
+    <li><a routerLink="/book" routerLinkActive="active" class="book-btn" (click)="menuOpen = false">BOOK NOW</a></li>
+  </ul>
+</nav>

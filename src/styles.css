@@ -1,0 +1,243 @@
+/* ========================================
+   IRON ROSE SALON - SIMPLE GLOBAL STYLES
+   ======================================== */
+
+/* ========================================
+   COLOR PALETTE - EDIT THESE COLORS
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap');
+
+:root {
+  /* COLORS - PUNK ROCK VIBES */
+  --primary: #0d0d0d;           /* Near black background */
+  --secondary: #1a1a1a;         /* Dark gray */
+  --accent: #ff0080;            /* Hot pink */
+  --accent-secondary: #ff4d94;  /* Lighter pink */
+  --accent-tertiary: #8b00ff;   /* Electric purple */
+  --accent-cyan: #00ffff;       /* Neon cyan */
+  --accent-lime: #39ff14;       /* Neon green */
+  --accent-yellow: #ffdd00;     /* Neon yellow */
+  --accent-orange: #ff6600;      /* Neon orange */
+  --text: #ffffff;              /* White text */
+  --text-muted: #bbbbbb;        /* Light gray text - easier to read */
+  --border: #333;                /* Border color */
+}
+
+/* ========================================
+   BASE STYLES
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Special Elite', cursive;
+  background: var(--primary);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 3px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 8px var(--accent-cyan);
+}
+
+/* ========================================
+   PAGE CONTAINER
+   ======================================== */
+.page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-title {
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent-cyan);
+}
+
+/* ========================================
+   BUTTON STYLES
+   ======================================== */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: var(--accent);
+  border: none;
+  color: white;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 0, 128, 0.5);
+}
+
+.btn-secondary {
+  background: transparent !important;
+  border: 2px solid var(--accent) !important;
+  color: var(--accent) !important;
+}
+
+.btn-secondary:hover {
+  background: var(--accent) !important;
+  color: white !important;
+  box-shadow: 0 8px 25px rgba(255, 0, 128, 0.5);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2rem;
+  }
+  
+  .page-container {
+    padding: 1rem;
+  }
+}
+
+/* ========================================
+   SCROLL ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-fade-in-delay-1 { animation-delay: 0.2s; opacity: 0; }
+.animate-fade-in-delay-2 { animation-delay: 0.4s; opacity: 0; }
+.animate-fade-in-delay-3 { animation-delay: 0.6s; opacity: 0; }
+.animate-fade-in-delay-4 { animation-delay: 0.8s; opacity: 0; }
+
+/* ========================================
+   SHAPE DECORATIONS
+   ======================================== */
+.shape-circle {
+  border-radius: 50%;
+}
+
+.shape-glow {
+  box-shadow: 0 0 30px var(--accent);
+}
+
+.shape-border-accent {
+  border: 3px solid var(--accent);
+}
+
+.shape-border-cyan {
+  border: 3px solid var(--accent-cyan);
+}
+
+.shape-border-purple {
+  border: 3px solid var(--accent-tertiary);
+}
+
+.shape-border-lime {
+  border: 3px solid var(--accent-lime);
+}
+
+.address-link {
+  color: var(--text-muted);
+  text-decoration: underline;
+  transition: all 0.3s ease;
+}
+
+.address-link:hover {
+  color: var(--accent-cyan);
+  text-shadow: 0 0 8px var(--accent-cyan);
+}

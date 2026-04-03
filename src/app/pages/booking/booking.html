@@ -1,0 +1,267 @@
+<div class="booking-page">
+  @if (showSuccessPopup) {
+    <div class="popup-overlay" (click)="closeSuccessPopup()">
+      <div class="success-popup" (click)="$event.stopPropagation()">
+        <div class="popup-icon">✓</div>
+        <h2>Appointment Booked!</h2>
+        <p>Your appointment has been successfully scheduled.</p>
+        <div class="popup-details">
+          <p><strong>Service:</strong> {{ selectedService?.name }}</p>
+          <p><strong>Stylist:</strong> {{ selectedStylist?.name }}</p>
+          <p><strong>Date:</strong> {{ formatDate(selectedDate) }}</p>
+          <p><strong>Time:</strong> {{ selectedTime }}</p>
+        </div>
+        <p class="popup-note">A confirmation email has been sent to {{ customerEmail }}</p>
+        <button class="btn btn-primary" (click)="closeSuccessPopup()">Continue</button>
+      </div>
+    </div>
+  }
+  <section class="booking-hero">
+    <div class="page-container">
+      <h1 class="page-title">BOOK NOW</h1>
+      <p class="booking-subtitle">Schedule your appointment</p>
+    </div>
+  </section>
+
+  <section class="booking-content">
+    <div class="page-container">
+      @if (success) {
+        <div class="success-card">
+          <div class="success-icon">✓</div>
+          <h2>Booking Confirmed!</h2>
+          <p>{{ success }}</p>
+          <div class="booking-summary">
+            <p><strong>Service:</strong> {{ selectedService?.name }}</p>
+            <p><strong>Stylist:</strong> {{ selectedStylist?.name }}</p>
+            <p><strong>Date:</strong> {{ formatDate(selectedDate) }}</p>
+            <p><strong>Time:</strong> {{ selectedTime }}</p>
+          </div>
+          <p class="confirmation-note">Please arrive 5-10 minutes before your appointment.</p>
+          <button class="btn" (click)="resetForm()">Book Another Appointment</button>
+        </div>
+      } @else {
+        <div class="booking-steps">
+          <div class="step-indicator">
+            <div class="step" [class.active]="step >= 1" [class.completed]="step > 1">
+              <span class="step-number">1</span>
+              <span class="step-label">Service</span>
+            </div>
+            <div class="step-line" [class.active]="step > 1"></div>
+            <div class="step" [class.active]="step >= 2" [class.completed]="step > 2">
+              <span class="step-number">2</span>
+              <span class="step-label">Stylist & Date</span>
+            </div>
+            <div class="step-line" [class.active]="step > 2"></div>
+            <div class="step" [class.active]="step >= 3" [class.completed]="step > 3">
+              <span class="step-number">3</span>
+              <span class="step-label">Time</span>
+            </div>
+            <div class="step-line" [class.active]="step > 3"></div>
+            <div class="step" [class.active]="step >= 4">
+              <span class="step-number">4</span>
+              <span class="step-label">Details</span>
+            </div>
+          </div>
+        </div>
+
+        @if (error) {
+          <div class="error-message">{{ error }}</div>
+        }
+
+        <div class="booking-form-container">
+          @if (loadingServices) {
+            <div class="loading-message">Loading services...</div>
+          } @else if (services.length === 0) {
+            <div class="empty-message">No services available. Please try again later.</div>
+          } @else if (step === 1) {
+            <div class="step-content">
+              <h2>Select a Service</h2>
+              <p class="step-description">Choose the service you'd like to book</p>
+              
+              <div class="services-grid">
+                @for (service of services; track service.id) {
+                  <div class="service-card" [class.selected]="selectedService?.id === service.id" 
+                       (click)="selectService(service)">
+                    <div class="service-info">
+                      <h3>{{ service.name }}</h3>
+                      @if (service.description) {
+                        <p class="service-description">{{ service.description }}</p>
+                      }
+                      <p class="service-duration">{{ service.duration }} min</p>
+                    </div>
+                    <div class="service-price">
+                      @if (service.price > 0) {
+                        ${{ service.price.toFixed(2) }}
+                      } @else {
+                        Quote
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+              
+              <div class="step-actions">
+                <button class="btn btn-primary" [disabled]="!canProceedToStep2()" (click)="nextStep()">
+                  Continue to Stylist Selection
+                </button>
+              </div>
+            </div>
+          }
+
+          @if (step === 2) {
+            <div class="step-content">
+              <h2>Select Stylist & Date</h2>
+              <p class="step-description">Choose your preferred stylist and appointment date</p>
+              
+              <div class="stylists-section">
+                <h3>Select a Stylist</h3>
+                <div class="stylists-grid">
+                  @for (stylist of stylists; track stylist.id) {
+                    <div class="stylist-card" [class.selected]="selectedStylist?.id === stylist.id"
+                         (click)="selectStylist(stylist)">
+                      <div class="stylist-avatar">{{ stylist.name.charAt(0) }}</div>
+                      <div class="stylist-info">
+                        <h4>{{ stylist.name }}</h4>
+                        <p>{{ stylist.specialties }}</p>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="date-section">
+                <h3>Select a Date</h3>
+                <input type="date" class="date-input" [min]="minDate" 
+                       [(ngModel)]="selectedDate" (change)="onDateChange()">
+                @if (selectedDate) {
+                  <p class="selected-date">{{ getDayOfWeek(selectedDate) }}, {{ formatDate(selectedDate) }}</p>
+                }
+              </div>
+              
+              <div class="step-actions">
+                <button class="btn btn-secondary" (click)="prevStep()">Back</button>
+                <button class="btn btn-primary" [disabled]="!canProceedToStep3()" (click)="nextStep()">
+                  Continue to Time Selection
+                </button>
+              </div>
+            </div>
+          }
+
+          @if (step === 3) {
+            <div class="step-content">
+              <h2>Select a Time</h2>
+              <p class="step-description">Choose your preferred appointment time</p>
+              
+              <div class="selected-info">
+                <span class="info-badge">{{ selectedService?.name }}</span>
+                <span class="info-badge">{{ selectedStylist?.name }}</span>
+                <span class="info-badge">{{ formatDate(selectedDate) }}</span>
+              </div>
+              
+              @if (loadingSlots) {
+                <div class="loading-slots">Loading available times...</div>
+              } @else if (availableSlots.length === 0) {
+                <div class="no-slots">
+                  <p>No available times on this date with {{ selectedStylist?.name }}.</p>
+                  <p>Please try another date or stylist.</p>
+                </div>
+              } @else {
+                <div class="time-slots">
+                  @for (slot of allSlots; track slot) {
+                    <button class="time-slot" 
+                            [class.available]="isSlotAvailable(slot)"
+                            [class.selected]="selectedTime === slot"
+                            [class.unavailable]="!isSlotAvailable(slot)"
+                            [disabled]="!isSlotAvailable(slot)"
+                            (click)="selectTime(slot)">
+                      {{ slot }}
+                    </button>
+                  }
+                </div>
+              }
+              
+              <div class="step-actions">
+                <button class="btn btn-secondary" (click)="prevStep()">Back</button>
+                <button class="btn btn-primary" [disabled]="!canProceedToStep4()" (click)="nextStep()">
+                  Continue to Your Details
+                </button>
+              </div>
+            </div>
+          }
+
+          @if (step === 4) {
+            <div class="step-content">
+              <h2>Your Information</h2>
+              <p class="step-description">Enter your contact details to complete the booking</p>
+              
+              <div class="booking-summary-card">
+                <h3>Booking Summary</h3>
+                <div class="summary-row">
+                  <span>Service:</span>
+                  <span>{{ selectedService?.name }}</span>
+                </div>
+                <div class="summary-row">
+                  <span>Stylist:</span>
+                  <span>{{ selectedStylist?.name }}</span>
+                </div>
+                <div class="summary-row">
+                  <span>Date:</span>
+                  <span>{{ formatDate(selectedDate) }}</span>
+                </div>
+                <div class="summary-row">
+                  <span>Time:</span>
+                  <span>{{ selectedTime }}</span>
+                </div>
+                <div class="summary-row">
+                  <span>Duration:</span>
+                  <span>{{ selectedService?.duration }} minutes</span>
+                </div>
+                <div class="summary-row price">
+                  <span>Price:</span>
+                  <span>{{ selectedService?.price && selectedService!.price > 0 ? '$' + selectedService!.price.toFixed(2) : 'Quote at appointment' }}</span>
+                </div>
+              </div>
+              
+              <form class="contact-form" (submit)="submitBooking()">
+                <div class="form-group">
+                  <label for="name">Full Name *</label>
+                  <input type="text" id="name" [(ngModel)]="customerName" name="name" required 
+                         placeholder="Your full name">
+                </div>
+                
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" [(ngModel)]="customerEmail" name="email" required 
+                         placeholder="your@email.com">
+                </div>
+                
+                <div class="form-group">
+                  <label for="phone">Phone Number *</label>
+                  <input type="tel" id="phone" [(ngModel)]="customerPhone" name="phone" required 
+                         placeholder="(555) 555-5555">
+                </div>
+                
+                <div class="form-group">
+                  <label for="notes">Special Requests (optional)</label>
+                  <textarea id="notes" [(ngModel)]="notes" name="notes" rows="3" 
+                            placeholder="Any special requests or notes for your stylist..."></textarea>
+                </div>
+                
+                <div class="step-actions">
+                  <button type="button" class="btn btn-secondary" (click)="prevStep()">Back</button>
+                  <button type="submit" class="btn btn-primary" [disabled]="submitting || !customerName || !customerEmail || !customerPhone">
+                    @if (submitting) {
+                      Booking...
+                    } @else {
+                      Confirm Booking
+                    }
+                  </button>
+                </div>
+              </form>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>
+</div>

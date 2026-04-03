@@ -1,0 +1,130 @@
+<div class="about-page">
+  <section class="about-hero">
+    <div class="collage-container">
+      <div class="side-left">
+        @for (img of sideImages; track $index) {
+          <img [src]="img.left" alt="Salon photo" class="side-img left" [class.top]="$index === 0">
+        }
+      </div>
+      <div class="collage-left">
+        <img [src]="carouselImages[0]" alt="Salon photo" class="collage-img left-top">
+        <img [src]="carouselImages[2]" alt="Salon photo" class="collage-img left-bottom">
+      </div>
+      <div class="hero-center">
+        <h1 class="page-title">OUR STORY</h1>
+      </div>
+      <div class="collage-right">
+        <img [src]="carouselImages[1]" alt="Salon photo" class="collage-img right-top">
+        <img [src]="carouselImages[3]" alt="Salon photo" class="collage-img right-bottom">
+      </div>
+      <div class="side-right">
+        @for (img of sideImages; track $index) {
+          <img [src]="img.right" alt="Salon photo" class="side-img right" [class.top]="$index === 0">
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="about-content">
+    <div class="page-container">
+      <div class="story-grid">
+        <div class="story-text">
+          <h2>FEMALE OWNED & ALL FEMALE STYLISTS</h2>
+          <p>
+            The Iron Rose Salon is a place where people can come get a cup of coffee, share a laugh,
+            feel at home and all the while get pampered with a new do! We provide the best possible
+            services, products, and experience without all the sh*tty attitude. Our Team is a group
+            of fun loving, creative , professional stylist that make the Iron Rose what it is.
+          </p>
+
+          <p>The Iron Rose Salon was created by Oklahoma native, Misty Byrd.</p>
+
+          <p>
+            Misty, has had a mad passion for hair since a young age and has been working behind the
+            chair since 2007. Misty loves doing extreme punk rock styles, edgy cuts, and colors. She
+            specializes in color corrections as well as cutting corrections. Single-process color,
+            highlighting of all Techniques, Fantasy hair color, and all the bright colors! Misty
+            uses several different professional color systems designed to achieve each individual’s
+            needs. From highlights to Mohawks! Misty looks forward to helping make all your hair
+            dreams come true.
+          </p>
+
+          <p>
+            Although a very busy entrepreneur, in her downtime Misty enjoys riding motorcycles,
+            yoga, digging crystals, her pets, and her family!
+          </p>
+          <p>Misty's story...</p>
+          @if (showFullStory) {
+            <div class="full-story">
+              <p>
+                "I feel like one of the lucky ones. Growing up very poor in an abusive home where I was
+                neglected I found myself homeless in the streets with a drug addiction by the age 16.
+              </p>
+
+              <p>
+                By 25 I had two boys and was trying to turn it around for them. I found recovery and got
+                clean. Of course, life still happens and I struggled. I had over 30 jobs mostly in fast
+                food. I was on food stamps and DHS assistance. I started as a receptionist in a salon
+                that I loved. The owner encouraged me to go to cosmetology school so I got my GED and
+                went. I worked there several years before I read a booked called "Who Moved My Cheese."
+              </p>
+
+              <p>
+                I was inspired to open my own place. I Decided that life is short and I really wanted to
+                do it on my own. I had no idea how to run a business or how hard it would be but I was
+                determined. With just the money I was making behind the chair I decided to open my first
+                salon in 2013 and I had to close 9 months later.
+              </p>
+
+              <p>
+                After a year I decided to try it again and borrow some money from a dear friend who has
+                now passed. I reopened the Iron Rose Salon in 2014… it has not been easy, I had no big
+                money, just support of great friends, a loving husband, a dream, and a hellbent
+                attitude! When I re-opened it was just me. Today I have 12 chairs and a receptionist. I
+                have created a space for hairstylist to work where they can be themselves, and not have
+                to conform. They don't have to sell anything or dress a certain way. We listen to loud
+                music and the energy is high! I want people to walk in and feel at home." ~ Misty
+              </p>
+            </div>
+            <button class="btn btn-small" (click)="toggleStory()">READ LESS</button>
+          } @else {
+            <button class="btn btn-small" (click)="toggleStory()">READ MORE</button>
+          }
+        </div>
+        <div class="story-image">
+          <img
+            src="https://static.wixstatic.com/media/43a0fe_4885c9ace0464dd5a83ed8e8fdbf0acb~mv2.png"
+            alt="Misty Byrd - Owner"
+            class="owner-photo"
+          />
+        </div>
+      </div>
+
+      <div class="brands-section">
+        <h2 class="section-title">WE USE THE BEST</h2>
+        <div class="brands-grid">
+          <div class="brand-item">Pravana</div>
+          <div class="brand-item">Pulpriot</div>
+          <div class="brand-item">Kevin Murphy</div>
+          <div class="brand-item">Unite</div>
+        </div>
+      </div>
+
+      <div class="values-section">
+        <h2 class="section-title">OUR LOCATION</h2>
+        <div class="location-info">
+          <p><strong>Red Cup Square</strong></p>
+          <a href="https://www.google.com/maps/search/Red+Cup+Square+3124+N+Classen+Blvd+OKC+OK+73118" target="_blank" rel="noopener" class="address-link">3124 N. Classen BLVD. OKC, OK 73118</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <div class="page-container">
+      <h2>COME SEE FOR YOURSELF</h2>
+      <p>Experience the Iron Rose difference.</p>
+      <a routerLink="/book" class="btn">BOOK NOW</a>
+    </div>
+  </section>
+</div>

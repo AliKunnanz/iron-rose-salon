@@ -1,0 +1,66 @@
+<div class="stylists-page">
+  <section class="stylists-hero">
+    <div class="page-container">
+      <h1 class="page-title">OUR STYLISTS</h1>
+      <p class="stylists-subtitle">Meet the artists behind your transformation</p>
+    </div>
+  </section>
+
+  <section class="stylists-content">
+    <div class="page-container">
+      <div class="stylists-grid">
+        @for (stylist of stylists; track stylist.name) {
+          <div class="stylist-card" (click)="selectStylist(stylist)" [class.active]="selectedStylist === stylist">
+            <div class="stylist-photo">
+              <div class="photo-frame">
+                <img [src]="stylist.photo" [alt]="stylist.name" class="stylist-img">
+                <div class="glitch-overlay"></div>
+              </div>
+            </div>
+            <div class="stylist-info">
+              <h3>{{ stylist.name }}</h3>
+              <p class="stylist-title">{{ stylist.title }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (selectedStylist) {
+        <div class="stylist-detail">
+          <button class="close-btn" (click)="selectedStylist = null">×</button>
+          <div class="detail-grid">
+            <div class="detail-photo">
+              <div class="photo-frame large">
+                <img [src]="selectedStylist.photo" [alt]="selectedStylist.name" class="stylist-img">
+              </div>
+            </div>
+            <div class="detail-info">
+              <h2>{{ selectedStylist.name }}</h2>
+              <p class="detail-title">{{ selectedStylist.title }}</p>
+              <p class="detail-bio">{{ selectedStylist.bio }}</p>
+              
+              <div class="detail-specialties">
+                <h4>SPECIALTIES</h4>
+                <ul>
+                  @for (specialty of selectedStylist.specialties; track specialty) {
+                    <li>{{ specialty }}</li>
+                  }
+                </ul>
+              </div>
+              
+              <a routerLink="/contact" class="btn">BOOK WITH {{ selectedStylist.name.split(' ')[0].toUpperCase() }}</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="stylists-cta">
+    <div class="page-container">
+      <h2>JOIN OUR TEAM</h2>
+      <p>We're always looking for talented stylists to join the Iron Rose family.</p>
+      <a routerLink="/contact" class="btn">GET IN TOUCH</a>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,57 @@
+<div class="shop-page">
+  <section class="shop-hero">
+    <div class="page-container">
+      <h1 class="page-title">SHOP</h1>
+      <p class="shop-subtitle">Professional products for your hair</p>
+    </div>
+  </section>
+
+  <section class="shop-content">
+    <div class="page-container">
+      @if (loading) {
+        <div class="loading">Loading products...</div>
+      }
+
+      @if (error) {
+        <div class="error-message">{{ error }}</div>
+      }
+
+      @if (!loading && !error && products.length === 0) {
+        <div class="shop-notice">
+          <p>No products available at the moment.</p>
+        </div>
+      }
+
+      @if (!loading && !error && products.length > 0) {
+        <div class="products-grid">
+          @for (group of getProductsByCategory(); track group.category) {
+            <div class="product-category">
+              <h2 class="category-title">{{ group.category }}</h2>
+              <div class="category-products">
+                @for (product of group.products; track product.id) {
+                  <div class="product-card">
+                    <div class="product-image">{{ product.name.charAt(0) }}</div>
+                    <div class="product-info">
+                      <h3 class="product-name">{{ product.name }}</h3>
+                      <p class="product-description">{{ product.description }}</p>
+                      <div class="product-price">${{ product.price.toFixed(2) }}</div>
+                      @if (product.in_stock) {
+                        <span class="in-stock">In Stock</span>
+                      } @else {
+                        <span class="out-of-stock">Out of Stock</span>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="shop-note">
+        <p><strong>Note:</strong> Visit the salon or ask your stylist about products available for purchase!</p>
+      </div>
+    </div>
+  </section>
+</div>

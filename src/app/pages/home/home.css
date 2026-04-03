@@ -1,0 +1,210 @@
+/* ========================================
+   HOME PAGE STYLES - PUNK ROCK VIBES
+   ======================================== */
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 8rem 2rem;
+  background: 
+    linear-gradient(rgba(13, 13, 13, 0.85), rgba(13, 13, 13, 0.7)),
+    url('https://static.wixstatic.com/media/43a0fe_cbcfbbd96c014991b0aff86875ed2882~mv2.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative shapes in background */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 150px;
+  height: 150px;
+  border: 3px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 15%;
+  right: 10%;
+  width: 100px;
+  height: 100px;
+  border: 3px solid var(--accent-cyan);
+  transform: rotate(45deg);
+  opacity: 0.3;
+  animation: pulse 4s ease-in-out infinite 1s;
+}
+
+.hero h1 {
+  font-size: 5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--accent-cyan);
+  letter-spacing: 8px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.hero-tagline {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+.hero .btn {
+  margin: 0 0.5rem;
+}
+
+.hero .btn-secondary {
+  background: transparent !important;
+  border: 2px solid var(--accent) !important;
+  color: var(--accent) !important;
+}
+
+.hero .btn-secondary:hover {
+  background: var(--accent) !important;
+  color: white !important;
+  box-shadow: 0 8px 25px rgba(255, 0, 128, 0.5);
+}
+
+/* Intro Section */
+.intro {
+  padding: 4rem 2rem;
+  background: var(--primary);
+  border-left: 5px solid var(--accent);
+  position: relative;
+}
+
+.intro::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 0, 128, 0.05));
+  pointer-events: none;
+}
+
+.intro h2 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.intro p {
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Features Section */
+.features {
+  padding: 4rem 2rem;
+  background: var(--secondary);
+}
+
+.features h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  background: var(--primary);
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.feature-card:nth-child(1)::before { background: var(--accent); }
+.feature-card:nth-child(2)::before { background: var(--accent-cyan); }
+.feature-card:nth-child(3)::before { background: var(--accent-tertiary); }
+.feature-card:nth-child(4)::before { background: var(--accent-lime); }
+
+.feature-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.feature-card:nth-child(1):hover { box-shadow: 0 15px 40px rgba(255, 0, 128, 0.2); }
+.feature-card:nth-child(2):hover { box-shadow: 0 15px 40px rgba(0, 255, 255, 0.2); }
+.feature-card:nth-child(3):hover { box-shadow: 0 15px 40px rgba(139, 0, 255, 0.2); }
+.feature-card:nth-child(4):hover { box-shadow: 0 15px 40px rgba(57, 255, 20, 0.2); }
+
+.feature-card h3 {
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.feature-card p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* CTA Section */
+.cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--primary);
+  border-top: 2px solid var(--accent);
+  position: relative;
+}
+
+.cta h2 {
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    letter-spacing: 4px;
+  }
+  
+  .hero::before,
+  .hero::after {
+    display: none;
+  }
+}

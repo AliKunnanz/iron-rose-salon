@@ -1,0 +1,246 @@
+<div class="admin-page">
+  <section class="admin-hero">
+    <div class="page-container">
+      <h1 class="page-title">ADMIN DASHBOARD</h1>
+      <p class="admin-subtitle">Manage appointments</p>
+    </div>
+  </section>
+
+  <section class="admin-content">
+    <div class="page-container">
+      <div class="tabs">
+        <button class="tab" [class.active]="activeTab === 'bookings'" (click)="activeTab = 'bookings'">
+          Appointments
+        </button>
+        <button class="tab" [class.active]="activeTab === 'messages'" (click)="activeTab = 'messages'">
+          Messages @if (getUnreadMessagesCount() > 0) {
+            <span class="badge">{{ getUnreadMessagesCount() }}</span>
+          }
+        </button>
+      </div>
+
+      @if (activeTab === 'bookings') {
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📅</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ getTodayCount() }}</span>
+            <span class="stat-label">Today's Appointments</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📆</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ getUpcomingCount() }}</span>
+            <span class="stat-label">Upcoming</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✓</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ getCompletedCount() }}</span>
+            <span class="stat-label">Completed</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ bookings.length }}</span>
+            <span class="stat-label">Total Bookings</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="filters-section">
+        <h2>Filter Appointments</h2>
+        <div class="filters-row">
+          <div class="filter-group">
+            <label for="filter-date">Date</label>
+            <input type="date" id="filter-date" [(ngModel)]="filterDate">
+          </div>
+          <div class="filter-group">
+            <label for="filter-status">Status</label>
+            <select id="filter-status" [(ngModel)]="filterStatus">
+              <option value="">All Statuses</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+              <option value="no-show">No Show</option>
+            </select>
+          </div>
+          <div class="filter-actions">
+            <button class="btn btn-primary" (click)="applyFilters()">Apply</button>
+            <button class="btn btn-secondary" (click)="clearFilters()">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      @if (loading) {
+        <div class="loading">Loading appointments...</div>
+      } @else if (bookings.length === 0) {
+        <div class="no-bookings">
+          <p>No appointments found.</p>
+        </div>
+      } @else {
+        <div class="bookings-table-container">
+          <table class="bookings-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Customer</th>
+                <th>Service</th>
+                <th>Stylist</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (booking of filteredBookings; track booking.id) {
+                <tr>
+                  <td>{{ formatDate(booking.appointment_date) }}</td>
+                  <td>{{ booking.appointment_time }}</td>
+                  <td>
+                    <div class="customer-info">
+                      <span class="customer-name">{{ booking.customer_name }}</span>
+                      <span class="customer-contact">{{ booking.customer_phone }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="service-info">
+                      <span class="service-name">{{ booking.service_name }}</span>
+                      @if (booking.service_price) {
+                        <span class="service-price">${{ booking.service_price.toFixed(2) }}</span>
+                      }
+                    </div>
+                  </td>
+                  <td>{{ booking.stylist_name }}</td>
+                  <td>
+                    <span class="status-badge" [ngClass]="getStatusClass(booking.status)">
+                      {{ booking.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-buttons">
+                      <button class="btn-action btn-view" (click)="viewDetails(booking)">View</button>
+                      <select class="status-select" [value]="booking.status" 
+                              (change)="updateStatus(booking.id, $any($event.target).value)">
+                        <option value="confirmed">Confirmed</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="no-show">No Show</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+      } @else if (activeTab === 'messages') {
+        <div class="messages-section">
+          <h2>Messages</h2>
+          @if (messages.length === 0) {
+            <div class="no-bookings">No messages yet.</div>
+          } @else {
+            <div class="messages-list">
+              @for (message of messages; track message.id) {
+                <div class="message-card" [class.unread]="!message.read" (click)="viewMessage(message)">
+                  <div class="message-header">
+                    <span class="message-name">{{ message.name }}</span>
+                    <span class="message-date">{{ formatDateTime(message.created_at) }}</span>
+                  </div>
+                  <div class="message-email">{{ message.email }}</div>
+                  @if (message.phone) {
+                    <div class="message-phone">{{ message.phone }}</div>
+                  }
+                  @if (message.message) {
+                    <div class="message-preview">{{ message.message }}</div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>
+</div>
+
+@if (selectedBooking) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Appointment Details</h2>
+        <button class="modal-close" (click)="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-row">
+          <span class="detail-label">Customer Name:</span>
+          <span class="detail-value">{{ selectedBooking.customer_name }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Email:</span>
+          <span class="detail-value">{{ selectedBooking.customer_email }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Phone:</span>
+          <span class="detail-value">{{ selectedBooking.customer_phone }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Service:</span>
+          <span class="detail-value">{{ selectedBooking.service_name }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Stylist:</span>
+          <span class="detail-value">{{ selectedBooking.stylist_name }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Date:</span>
+          <span class="detail-value">{{ formatDate(selectedBooking.appointment_date) }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Time:</span>
+          <span class="detail-value">{{ selectedBooking.appointment_time }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Duration:</span>
+          <span class="detail-value">{{ selectedBooking.duration }} minutes</span>
+        </div>
+        @if (selectedBooking.service_price) {
+          <div class="detail-row">
+            <span class="detail-label">Price:</span>
+            <span class="detail-value">${{ selectedBooking.service_price.toFixed(2) }}</span>
+          </div>
+        }
+        <div class="detail-row">
+          <span class="detail-label">Status:</span>
+          <span class="status-badge" [ngClass]="getStatusClass(selectedBooking.status)">
+            {{ selectedBooking.status }}
+          </span>
+        </div>
+        @if (selectedBooking.notes) {
+          <div class="detail-row">
+            <span class="detail-label">Notes:</span>
+            <span class="detail-value">{{ selectedBooking.notes }}</span>
+          </div>
+        }
+        <div class="detail-row">
+          <span class="detail-label">Booked:</span>
+          <span class="detail-value">{{ selectedBooking.created_at | date:'short' }}</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <label for="status-update">Update Status:</label>
+        <select id="status-update" [value]="selectedBooking.status" 
+                (change)="updateStatus(selectedBooking.id, $any($event.target).value)">
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="no-show">No Show</option>
+        </select>
+      </div>
+    </div>
+  </div>
+}

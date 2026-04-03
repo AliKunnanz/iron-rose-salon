@@ -1,0 +1,29 @@
+<div class="gallery-page">
+  <section class="gallery-hero">
+    <div class="page-container">
+      <h1 class="page-title">GALLERY</h1>
+      <p class="gallery-subtitle">Check out our latest work</p>
+    </div>
+  </section>
+
+  <section class="gallery-content">
+    <div class="page-container">
+      <div class="gallery-grid">
+        @for (image of images; track image.url; let i = $index) {
+          <div class="gallery-item" [style.animation-delay]="(i * 0.1) + 's'">
+            <img [src]="image.url" [alt]="image.alt" class="gallery-image">
+            <div class="gallery-overlay">
+              <span>{{ image.alt }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="gallery-cta">
+        <h2>FOLLOW US ON INSTAGRAM</h2>
+        <p>Tag us @IronRoseSalon to be featured!</p>
+        <a href="https://instagram.com/ironrosesalon" target="_blank" class="btn">FOLLOW @IRONROSESALON</a>
+      </div>
+    </div>
+  </section>
+</div>

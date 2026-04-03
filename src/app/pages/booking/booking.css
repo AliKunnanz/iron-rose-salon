@@ -1,0 +1,594 @@
+.booking-content {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--secondary);
+  border-radius: 8px;
+}
+
+.loading-message,
+.empty-message {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+.empty-message {
+  color: var(--accent);
+}
+
+.booking-steps {
+  margin-bottom: 2rem;
+}
+
+.step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 1.5rem;
+  background: var(--secondary);
+  border-radius: 8px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ddd;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.step.active .step-number {
+  background: var(--primary);
+  color: white;
+}
+
+.step.completed .step-number {
+  background: var(--accent);
+  color: white;
+}
+
+.step-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.step.active .step-label {
+  color: var(--text);
+  font-weight: bold;
+}
+
+.step-line {
+  width: 60px;
+  height: 3px;
+  background: #ddd;
+  margin: 0 0.5rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.3s;
+}
+
+.step-line.active {
+  background: var(--accent);
+}
+
+.step-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.step-content h2 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.step-description {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  pointer-events: none;
+}
+
+.service-card:hover::before {
+  border-color: var(--accent);
+  animation: pulse-border 1s infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { border-color: var(--accent); }
+  50% { border-color: var(--accent-cyan); }
+}
+
+.service-card:hover {
+  border-color: var(--primary);
+}
+
+.service-card.selected {
+  border-color: var(--accent);
+  background: rgba(255, 0, 128, 0.15);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+}
+
+.service-card.selected::after {
+  content: '✓ SELECTED';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--accent);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.service-info h3 {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--text);
+}
+
+.service-description {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.service-duration {
+  font-size: 0.8rem;
+  color: var(--primary);
+}
+
+.service-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.stylists-section {
+  margin-bottom: 2rem;
+}
+
+.stylists-section h3,
+.date-section h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.stylists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.stylist-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.stylist-card:hover {
+  border-color: var(--primary);
+}
+
+.stylist-card.selected {
+  border-color: var(--accent);
+  background: rgba(212, 165, 116, 0.1);
+}
+
+.stylist-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.stylist-info h4 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+}
+
+.stylist-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.date-section {
+  margin-bottom: 1.5rem;
+}
+
+.date-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.selected-date {
+  margin-top: 0.5rem;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.selected-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-badge {
+  padding: 0.5rem 1rem;
+  background: var(--secondary);
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.time-slot {
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.time-slot.available:hover {
+  border-color: var(--primary);
+  background: rgba(212, 165, 116, 0.1);
+}
+
+.time-slot.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+}
+
+.time-slot.unavailable {
+  background: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.loading-slots,
+.no-slots {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+}
+
+.booking-summary-card {
+  background: var(--secondary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.booking-summary-card h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--accent);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row.price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--accent);
+  padding-top: 1rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: var(--text);
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary);
+}
+
+.success-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.success-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.success-card h2 {
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.booking-summary {
+  background: var(--secondary);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.booking-summary p {
+  margin: 0.5rem 0;
+}
+
+.confirmation-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.success-popup {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 400px;
+  margin: 1rem;
+  animation: slideUp 0.3s;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.popup-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.success-popup h2 {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.popup-details {
+  background: var(--secondary);
+  padding: 1.25rem;
+  border-radius: 8px;
+  margin: 1.25rem 0;
+  text-align: left;
+}
+
+.popup-details p {
+  margin: 0.4rem 0;
+}
+
+.popup-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .step-indicator {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .step-line {
+    display: none;
+  }
+  
+  .step-label {
+    font-size: 0.65rem;
+  }
+  
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stylists-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .step-actions {
+    flex-direction: column;
+  }
+  
+  .step-actions .btn {
+    width: 100%;
+  }
+}
